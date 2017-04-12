@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Методы машинного обучения в геоботанике: прогнозирование, верификация, интерпретация</title>
+
+  <meta name="description" content="Обзор современных подходов машинного обучения в контексте задачи прогнозирования структуры растительного покрова по факторам среды">
+  <meta name="author" content="Dmitry E. Kislov">
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="css/reveal.min.css">
+  <link rel="stylesheet" href="css/default.css" id="theme">
+  <link rel="stylesheet" href="css/overrides.css" id="theme">
+
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="css/zenburn.css">
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+    document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+  </script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+        <section>
+            <h3> Ботанический сад-институт ДВО РАН </h3>
+            <div style="height: 2em;width: 1px"></div>
+  					<h3 style="color: cyan;">Методы машинного обучения в геоботанике: прогнозирование, верификация, интерпретация</h3>
+            <div style="height: 1em; width: 1px"></div>
+            <p class="em2" >Кислов Д.Е.</p>
+            <div style="height: 2em;width: 1px"></div>
+            <p>Владивосток &ndash; 2017</p>
+        </section>
+
+        <section>
+          <section>
+            <h2>Машинное обучение</h2>
+            <div class="fragment zoom-in">
+              <p class="em2">Комплекс подходов, характерной чертой которых является формирование решения задачи на основе множества уже известных решений сходных задач</p>
+            </div>
+          </section>
+
+
+          <section>
+            <h3> Задачи, решаемые при помощи машинного обучения </h3>
+            <p class="fragment zoom-in">распознавание текста</p>
+            <span class="fragment zoom-in">
+                 <img src="img/mnist_recognition.jpeg"/>
+              </span>
+            <span class="fragment zoom-in" >
+              <img src="img/mnist_sampling.png"/>
+              <p class="em">
+              Данные для обучения:&nbsp; рукописные изображения известных цифр/букв/объектов, которые необходимо распознать
+              </p>
+            </span>
+          </section>
+
+          <section>
+            <h3> Задачи, решаемые при помощи машинного обучения </h3>
+            <p class="fragment zoom-in">распознавание речи</p>
+            <div class="fragment zoom-in">
+                 <img src="img/voice_generate.png" width="25%"/>
+                 <div style="display:inline;position:relative;">
+                   <img src="img/voice_sample.jpeg" width="70%"/>
+                   <div style="position:absolute; left: 10px; top: -50px" class="fragment fade-in" data-fragment-index="4">А</div>
+                   <div style="position:absolute; left: 200px; top: -50px" class="fragment fade-in" data-fragment-index="5">B</div>
+ 
+                   <div style="position:absolute; left: 270px; top: -50px" class="fragment fade-in" data-fragment-index="6">C</div>
+                    <div style="position:absolute; left: 320px; top: -50px" class="fragment fade-in" data-fragment-index="7">D</div>
+                 </div>
+            </div>
+            <p class="em fragment fade-in" data-fragment-index="3">Данные для обучения: образцы произношения отдельных букв/слогов и их цифровые представления<p>
+         </section>
+
+
+
+           <section>
+            <h3> Задачи, решаемые при помощи машинного обучения </h3>
+            <p class="fragment zoom-in">медицинская диагностика</p>
+            <span class="fragment zoom-in">
+                 <img src="img/medical_diag.png"/>
+            </span>
+             <p class="em fragment">
+              Данные для обучения: &nbsp; характерные изображения интересующих патологий развития/образований ... 
+              <span class="em2 fragment">зависит от задачи...</span>
+              </p>
+          </section>
+
+
+
+      <section>
+        <section>
+          <h2 class="em">RubyMotion</h2>
+          <p class="fragment zoom-in" data-background="#007777">
+            <img src="img/wat.jpg" />
+          </p>
+          <aside class="notes">
+            How many Ruby Devs?  How many iPhone devs? How many game devs?
+          </aside>
+        </section>
+
+        <section>
+          <h2 class="em">RubyMotion - Wat?</h2>
+          <div class="fragment fade-in">
+            <h3>/ˈro͞obē-mōSHən/</h3>
+            <em>noun trademark</em>
+            <br/>
+            1. A proprietary toolchain, created by HipByte SPRL, for developing native <span class="em2">iOS</span> and <span class="em2">OS X</span> applications on Apple devices and computers by statically compiling the <strong>Ruby</strong> programming language.
+          </div>
+          <p class="fragment fade-in">
+            <span class="em">OR</span>
+          </p>
+          <h2 class="fragment fade-in">
+            Apps the Ruby Way
+          </h2>
+
+          <aside class="notes">
+            Ruby Rockstar!!!
+          </aside>
+        </section>
+
+      </section>
+
+      <section>
+        <section>
+          <h2 class="em">Quick Example</h2>
+          <p class="fragment fade-in">
+            <span class="em2">Objective-C</span> button tap
+          </p>
+          <div class="fragment fade-in">
+            <pre><code>
+  [button addTarget:self action:@selector(buttonTapped:) 
+      forControlEvents: UIControlEventTouchUpInside];
+
+  //  Elsewhere
+  - (void)buttonTapped:(id)sender {
+      self.view.backgroundColor = [UIColor redColor];
+  }
+            </code></pre>
+          </div>
+          <p class="fragment fade-in">
+            <span class="em2">RubyMotion</span> button tap 
+          </p>
+          <div class="fragment fade-in">
+            <pre><code>
+  button.addTarget(self, action:'button_tapped', 
+      forControlEvents:UIControlEventTouchUpInside)
+
+  # Elsewhere
+  def button_tapped
+    self.view.backgroundColor = UIColor.redColor
+  end
+
+            </code></pre>
+          </div>          
+          <aside class="notes">
+            I'm happy to announce I've never made anything in Obj-C.  No that is not named parameters you see there.
+          </aside>
+        </section>
+
+        <section>
+          <h2 class="em">Better Example</h2>
+          <p>
+            <span class="em2">Objective-C</span> button tap
+          </p>
+          <div>
+            <pre><code>
+  [button addTarget:self action:@selector(buttonTapped:) 
+      forControlEvents: UIControlEventTouchUpInside];
+
+  //  Elsewhere
+
+  - (void)buttonTapped:(id)sender {
+      self.view.backgroundColor = [UIColor redColor];
+  }
+            </code></pre>
+          </div>
+          <p class="fragment fade-in">
+            <span class="em2">RubyMotion</span> button tap <small>(with sugarcube gem)</small>
+          </p>
+          <div class="fragment fade-in">
+            <pre class="big-code"><code>
+  button.on(:touch) do
+    self.view.backgroundColor = :red.uicolor
+  end
+
+            </code></pre>
+          </div>
+          <aside class="notes">
+            Less delegates and targets; more Ruby blocks.  Don't get me started on "addTarget:self". 
+          </aside>
+        </section>        
+
+        <section>
+          <h2 class="em"><pre>lessLike:objectiveC:</pre> and more <code>like_ruby</code></h2>
+          <p>
+            - Clay Allsopp
+          </p>
+        </section>
+
+      </section>
+
+      <section>
+       <section>
+        <h2 class="em">What's So Great About RubyMotion?</h2>
+        <p class="fragment fade-in">
+          <em>In my opinion</em>
+        </p>
+        <ul>
+          <li class="fragment fade-in">Gems and Community</li>
+          <li class="fragment fade-in">Editor Independence</li>
+          <li class="fragment fade-in">Testing!</li>
+          <li class="fragment fade-in">Readability</li>
+          <li class="fragment fade-in">Natively Compiled</li>
+          <li class="fragment fade-in">The REPL</li>
+        </ul>
+
+        <aside class="notes">
+          <ul>
+            <li>Gems for RM as well as lots of existing gems!  Some limitation, no eval, and statically compiled barriers.  There are no dispassionate RM programmers.</li>
+            <li>Love Editor Independence, it's why I stay away from IDEs</li>
+            <li>BDD with MacBacon is easy!</li>
+            <li>Eye tracking study at Kent State for snake_case.  No re-un-disenable</li>
+            <li>As opposed to other solutions (like PhoneGap) that do not</li>
+            <li>Read Evaluate Print Loop - similar to irb</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section>
+        <h2 class="em">RubyMotion Analogy</h2>
+        <p class="fragment fade-in">
+          <span class="em2">RubyMotion</span> is to <span class="em2">Objective-C</span>
+          <hr/>
+        </p>
+        <p class="fragment fade-in">
+          As <span class="em2">Coffeescript</span> is to <span class="em2">Javascript</span>
+        </p>
+        <p class="fragment fade-in">
+          ... plus <span class="em2">gems</span> are kind of like <span class="em2">jQuery</span> plugins
+        </p>
+        <p class="fragment fade-in">
+          ... plus <span class="em2">MacBacon</span> has spec tests like <span class="em2">Jasmine</span> would
+        </p>
+        <p class="fragment fade-in">
+          ... plus the <span class="em2">REPL</span> lets you live-modify like <span class="em2">developer tools</span>
+        </p>
+        <p class="fragment fade-in">
+          ... plus it compiles and obfuscates your final codebase 
+        </p>
+        <br/>
+        <p class="fragment fade-in em">
+          ... OK, this analogy got out of control
+        </p>
+
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2 class="em">Let's Look At Code!</h2>
+        <ul>
+          <li class="fragment fade-in">Classic - <span class="em2">Hello World</span></li>
+          <li class="fragment fade-in">Full App - <span class="em2">Ruby Trivia</span></li>
+          <li class="fragment fade-in">Games!</li>
+        </ul>        
+      </section>
+      <section>
+        <h2 class="em">Hello World</h2>
+        <pre><code>
+  $ motion create test 
+        </code></pre>
+
+        <p class="fragment fade-in em2">
+          Tests will fail
+        </p>
+
+        <div class="fragment fade-in">   
+          <pre><code>
+  class AppDelegate
+    def application(application, didFinishLaunchingWithOptions:launchOptions)
+      @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
+      @window.rootViewController = HelloWorldController.new
+      @window.makeKeyAndVisible
+      true
+    end
+  end
+          </code></pre>
+          <pre><code>
+  class HelloWorldController < UIViewController
+    def viewDidLoad
+      p "Hai"
+    end
+  end
+          </code></pre>
+        </div>
+        <p class="fragment fade-in">
+          Now tests pass!
+        </p>
+        <aside class="notes">
+          <p>This makes an iOS application, you can build an OS X application by passing in the correct template</p>
+          <p>If you are interested in a full TDD/BDD build of Hello World, check my book</p>
+        </aside>
+      </section>
+      <section>
+        <h2 class="em">Hello World - REPL</h2>
+        <pre><code>
+  main_view = UIApplication.sharedApplication.windows[0].rootViewController.view
+  main_view.backgroundColor = UIColor.blueColor
+        </code></pre>
+        <p class="fragment fade-in">
+          <strong>OR</strong>, just command click the view!
+        </p>
+        <div class="fragment fade-in">
+          <pre><code>
+  # REPL input
+  self.backgroundColor = UIColor.whiteColor
+  @label = UILabel.new
+  @label.text = "Hello World"
+  @label.sizeToFit
+  self.addSubview(@label)
+  
+  # get down from there!
+  @label.center = [100, 100]
+
+          </code></pre>       
+        </div> 
+        <p class="fragment fade-in">
+          <strong>OR</strong>, use sugarcube-repl's <code>tree</code> command.
+        </p>
+        <aside class="notes">
+          <p>Accessing the view via the UIKit framework is a pain!  Fortunately, you can just command click</p>
+          <p>Can't command click because things are layered?  Try sugarcube-repl's tree command.</p>
+          <ul>
+            <li>a 2</li>
+            <li>a down 40</li>
+            <li>a.backgroundColor = :red.uicolor</li>
+            <li>a wider 100</li>
+          </ul>
+          <p>.uicolor gets converted to objective-c.  They all do!  Take a look at `test = {}`, `test.class`, `test.class`, `test.class.ancestors`</p>
+        </aside>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>Code Example #2</h2>
+        <h3 class="em">Ruby Trivia</h3>
+        <ul>
+          <li class="fragment fade-in em2">sugarcube</li>
+          <li class="fragment fade-in em2">Teacup</li>
+          <li class="fragment fade-in em2">ProMotion</li>
+          <li class="fragment fade-in em2">BubbleWrap</li>
+          <li class="fragment fade-in em2">formotion</li>
+          <li class="fragment fade-in">and more ...</li>
+        </ul>
+        <aside class="notes">
+          BubbleWrap brings in little demi-god objects that help you avoid the need for intimate knowledge of Cocoa Touch dynamics but following them, whereas sugarcube gives you more ruby-esque ways of doing existing items and then some features that are completely new!  Both maintianed by RubyMotion Group
+        </aside>
+      </section>
+      <section>
+        <a href="http://iconoclastlabs.github.io/rubytrivia/">iconoclastlabs.github.io/rubytrivia/</a>
+        <img src="img/rt1.PNG" />
+      </section>
+      <section>
+        <a href="https://itunes.apple.com/us/app/ruby-trivia/id703147133?ls=1&mt=8">Available on itunes</a>
+        <img src="img/rt2.PNG" />
+      </section>
+      <section>
+        <h2 class="em">Let's look at the code!</h2>
+      </section>
+    </section>
+
+    <section>
+      <section data-background="#800818" class="joybox" >
+        <h2>Code Example #3</h2>
+        <h3 class="em2">Joybox</h3>
+      </section>
+      <section>
+        <h2 class="em2">Joybox</h2>
+        <a href="#">joybox.io</a>
+        <p>
+          <ul>
+            <li class="fragment fade-in">Based on Cocos2D</li>
+            <li class="fragment fade-in">Includes Box2D physics</li>
+            <li class="fragment fade-in">Wrapped in Ruby API</li>
+          </ul>
+        </p>
+        <h3 class="fragment fade-in">EASY</h3>
+
+        <aside class="notes">
+          Young, free, gaming framework!  Cocos2D in Obj-C, and Box2D is in C++!
+        </aside>
+      </section>
+      <section>
+        <h3 class="em2">Joybox</h3>
+        <img src="img/joybox_game.png" />
+        <aside class="notes">
+          Here, we see a screenshot, that Juan sent me on a game currently in production.
+        </aside>
+      </section>
+      <section>
+        <h2 class="em">Let's look at some Joybox code!</h2>
+        <video class="stretch" src="examples/joybox_physics.mp4" controls>Your browser can't show the video</video>
+      </section>
+      <section>
+        <h2 class="em2">Totally Tacos!</span></h2>
+        <p>A game made in one day!</p>
+        <img src="img/totally_tacos.png" />
+      </section>
+
+    </section>
+
+
+    <section data-transition="linear" data-background-transition="slide" data-background="#333">
+      <section>
+        <h2 class="em">Thank you!</h2>
+        <p class="fragment fade-in">
+          Questions?
+        </p>
+        <img src="css/logo.png" class="logo" />
+        <p>
+         <a href="https://twitter.com/GantLaborde" class="em" target="_blank">@GantLaborde</a>
+        </p>
+        <p>
+        Feel free to contact me via <span class="em">Gant@IconoclastLabs.com</span>
+        </p>
+
+        <aside class="notes">
+          Announcements
+          <ul>
+            <li>Motion Meetup</li>
+            <li>Rails Rumble</li>
+            <li>Rails Girls</li>
+            <li>books and sunglasses</li>
+          </ul>
+        </aside>
+      </section>
+    </section>
+
+
+  </div>
+
+</div>
+
+<script src="js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+       { src: 'js/classList.js', condition: function() { return !document.body.classList; } },
+       { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+       { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+       { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+       { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+       { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+          ]
+        });
+
+</script>
+
+<div id="footer"></div>
+</body>
+</html>
