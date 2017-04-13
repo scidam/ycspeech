@@ -1,18 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-from sklearn.model_selection import train_test_split
+from sklearn.cross_validation import cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import make_moons, make_circles, make_classification
-from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
-from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis, LinearDiscriminantAnalysis
 import pandas as pd
 
 
@@ -42,15 +39,37 @@ def plot_map(data, colname='DOM1', cmap='jet', size=10):
     plt.gca().set_title(colname)
     return res
 
-
-
-
 res = plot_map(data, colname='DOM1', size=60)
 plt.colorbar(res)
-
-
-
-
-
 plt.show()
+
+
+# ----------- Global classifier comparison ------------
+names = ["Nearest Neighbors", "Linear SVM",
+                  "Decision Tree", "Random Forest",  "AdaBoost",
+                  "Naive Bayes", "LDA"]
+
+classifiers = [
+        KNeighborsClassifier(3),
+        SVC(kernel="linear", C=0.025),
+        DecisionTreeClassifier(max_depth=4),
+        RandomForestClassifier(max_depth=4, n_estimators=10, max_features=1),
+        AdaBoostClassifier(),
+        GaussianNB(),
+        LinearDiscriminantAnalysis()]
+
+#---------------------------------------------------------
+data = data.dropna()
+y = np.array(data['DOM1'].values.tolist())
+X = np.array(data[['SKLON', 'SK_KRYT', 'TIP_POCH', 'GIDRO', 'TEMP', 'OSADK', 'VISOT']].values.tolist())
+for name, clf in zip(names, classifiers):
+   res = cross_val_score(clf,X, y, cv=10)
+   print('Classiification results for %s, is %s' % (name, np.mean(res)))
+
+
+
+
+import autosklearn.classification
+cls = autosklearn.classification.AutoSklearnClassifier()
+print('RESULT AUTO:', cross_val_score(cls, X,  y))
 
