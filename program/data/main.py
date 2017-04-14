@@ -52,8 +52,8 @@ names = ["Nearest Neighbors", "Linear SVM",
 classifiers = [
         KNeighborsClassifier(3),
         SVC(kernel="linear", C=0.025),
-        DecisionTreeClassifier(max_depth=4),
-        RandomForestClassifier(max_depth=4, n_estimators=10, max_features=1),
+        DecisionTreeClassifier(max_depth=7),
+        RandomForestClassifier(max_depth=15, n_estimators=1000, max_features=2),
         AdaBoostClassifier(),
         GaussianNB(),
         LinearDiscriminantAnalysis()]
@@ -69,7 +69,7 @@ for name, clf in zip(names, classifiers):
 
 
 
-import autosklearn.classification
-cls = autosklearn.classification.AutoSklearnClassifier()
-print('RESULT AUTO:', cross_val_score(cls, X,  y))
+#import autosklearn.classification
+#cls = autosklearn.classification.AutoSklearnClassifier()
+#print('RESULT AUTO:', cross_val_score(cls, X,  y))
 
